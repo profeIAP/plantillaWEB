@@ -70,6 +70,11 @@ $app->get('/', function() use ($app){
     echo $twig->render('inicio.php');  
 }); 
 
+$app->get('/about', function() use ($app){
+    global $twig;
+    echo $twig->render('about.php');  
+}); 
+
 // Ponemos en marcha el router
 $app->run();
 

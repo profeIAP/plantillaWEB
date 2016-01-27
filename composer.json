@@ -1,0 +1,13 @@
+{
+  "repositories": [{
+      "type": "vcs",
+      "url": "https://github.com/tuupola/slim-fake-mcrypt.git"
+  }],
+  "require": {
+    "tuupola/slim-fake-mcrypt": "dev-master",
+    "slim/slim": "2.*",
+    "slim/extras": "*",
+	"twig/twig": "*",
+    "swiftmailer/swiftmailer": "5.*"
+  }
+}

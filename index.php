@@ -83,10 +83,22 @@ $app->get('/contactar', function() use ($app){
 $app->post('/guardarSugerencia', function() use ($app){
     global $twig;
     
+    // Recogemos datos formulario de contacto
+    
     $valores=array(
 		'nombre'=>$app->request()->post('nombre'),
-		'correo'=>$app->request()->post('email')
-	);
+		'email'=>$app->request()->post('email'),
+		'comentario'=>$app->request()->post('comentario')
+    );
+
+	// Guardamos en la BD
+	
+    $sql = "INSERT INTO contacto (nombre, email, comentario) VALUES (:nombre, :email, :comentario)";
+    $pdo=$app->db;
+	$q = $pdo->prepare($sql);
+	$q->execute($valores);
+	
+	// Mostramos un mensaje al usuario
 	
     echo $twig->render('agradecimiento.php',$valores);  
 }); 

@@ -75,6 +75,22 @@ $app->get('/about', function() use ($app){
     echo $twig->render('about.php');  
 }); 
 
+$app->get('/contactar', function() use ($app){
+    global $twig;
+    echo $twig->render('contacto.php');  
+}); 
+
+$app->post('/guardarSugerencia', function() use ($app){
+    global $twig;
+    
+    $valores=array(
+		'nombre'=>$app->request()->post('nombre'),
+		'correo'=>$app->request()->post('email')
+	);
+	
+    echo $twig->render('agradecimiento.php',$valores);  
+}); 
+
 // Ponemos en marcha el router
 $app->run();
 

@@ -17,6 +17,7 @@
 				<ul class="nav nav-pills pull-right">
 				    <li id="inicio" class="active"><a href="/">Inicio</a></li>
 				    <li id="contacto"><a href="/contactar">Contacto</a></li>
+				    <li id="comentarios"><a href="/comentarios">Comentarios</a></li>
 				    <li id="about"><a href="/about">Acerca de</a></li>
 				</ul>
 				<h3 class="text-muted">PlantillaWEB</h3>

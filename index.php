@@ -70,6 +70,20 @@ $app->get('/', function() use ($app){
     echo $twig->render('inicio.php');  
 }); 
 
+$app->get('/comentarios', function() use ($app){
+    global $twig;
+    
+    $pdo=$app->db;
+    $r = $pdo->query("select id, nombre, email
+					 from contacto
+					 where id=2")->fetch(PDO::FETCH_ASSOC);
+		
+	$valores=array('comentario'=>$r);
+
+    echo $twig->render('comentarios.php',$valores);  
+    
+}); 
+
 $app->get('/about', function() use ($app){
     global $twig;
     echo $twig->render('about.php');  

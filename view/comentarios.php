@@ -15,8 +15,11 @@
 <div class="jumbotron">
 	<h1>Comentarios recibidos</h1>
 	<p class="lead">El primer comentario que nos hicieron fue</p>
-	{% for campo, valor in comentario %}
-		{{campo}} : {{valor}} <br>
+	{% for comentario in comentarios %}
+		{% for campo, valor in comentario %}
+			{{campo}} : {{valor}} <br>
+		{% endfor %}
+		----------------<br>
 	{% endfor %}
 </div>
 

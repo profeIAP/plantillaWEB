@@ -87,6 +87,22 @@ $app->get('/about', function() use ($app){
     echo $twig->render('about.php');  
 }); 
 
+$app->get('/borrar', function() use ($app){
+	
+    global $twig;
+    
+    $valores=array(
+		"id"=>$app->request()->get('id')
+	);
+	
+	$sql = "delete from contacto WHERE ID=:id";
+	$pdo = $app->db;
+	$q   = $pdo->prepare($sql);
+	$q->execute($valores);
+	
+    $app->redirect('/comentarios');
+}); 
+
 $app->get('/contactar', function() use ($app){
     global $twig;
     echo $twig->render('contacto.php');  

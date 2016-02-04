@@ -16,9 +16,12 @@
 	<h1>Comentarios recibidos</h1>
 	<p class="lead">El primer comentario que nos hicieron fue</p>
 	{% for comentario in comentarios %}
+	
 		{% for campo, valor in comentario %}
 			{{campo}} : {{valor}} <br>
 		{% endfor %}
+		
+		<a href="/borrar?id={{comentario.ID}}"><img width="32px" src="http://findicons.com/files/icons/2226/matte_basic/32/trash_can1.png"></a><br>
 		----------------<br>
 	{% endfor %}
 </div>

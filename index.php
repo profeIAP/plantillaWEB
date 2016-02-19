@@ -103,32 +103,64 @@ $app->get('/borrar', function() use ($app){
     $app->redirect('/comentarios');
 }); 
 
+$app->get('/editar', function() use ($app){
+	
+    global $twig;
+    
+    $valores=array(
+		"id"=>$app->request()->get('id')
+	);
+	
+	$pdo=$app->db;
+    $q = $pdo->prepare("select * from contacto where id=:id");
+    $q->execute($valores);
+    $r=$q->fetch(PDO::FETCH_ASSOC);
+		
+	$valores=array('comentario'=>$r);
+
+    echo $twig->render('contacto.php',$valores);  	
+}); 
+
 $app->get('/contactar', function() use ($app){
     global $twig;
     echo $twig->render('contacto.php');  
 }); 
 
 $app->post('/guardarSugerencia', function() use ($app){
+	
     global $twig;
     
     // Recogemos datos formulario de contacto
     
     $valores=array(
+		'id'=>$app->request()->post('id'),
 		'nombre'=>$app->request()->post('nombre'),
 		'email'=>$app->request()->post('email'),
 		'comentario'=>$app->request()->post('comentario')
     );
 
-	// Guardamos en la BD
+	if($valores['id']){
+		$sql = "update contacto set NOMBRE=:nombre, EMAIL=:email, COMENTARIO=:comentario WHERE ID=:id";
+		$pdo=$app->db;
+		$q = $pdo->prepare($sql);
+		$q->execute($valores);
+		
+		$app->redirect('/comentarios');
+	}
+	else
+	{
+		unset($valores['id']);
+		
+		$sql = "INSERT INTO contacto (nombre, email, comentario) VALUES (:nombre, :email, :comentario)";
+		$pdo=$app->db;
+		$q = $pdo->prepare($sql);
+		$q->execute($valores);
 	
-    $sql = "INSERT INTO contacto (nombre, email, comentario) VALUES (:nombre, :email, :comentario)";
-    $pdo=$app->db;
-	$q = $pdo->prepare($sql);
-	$q->execute($valores);
-	
-	// Mostramos un mensaje al usuario
-	
-    echo $twig->render('agradecimiento.php',$valores);  
+		// Mostramos un mensaje al usuario
+		
+		echo $twig->render('agradecimiento.php',$valores); 
+	}
+
 }); 
 
 // Ponemos en marcha el router
